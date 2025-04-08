@@ -1,6 +1,7 @@
 import {useCart} from "../Components/CartContext";
 import {Link} from "react-router-dom";
-import { useNotification } from "../Components/NotificationContext";
+import {useNotification} from "../Components/NotificationContext";
+import {Trash2} from "lucide-react";
 
 const Cart = () => {
     const {state, dispatch} = useCart();
@@ -11,8 +12,18 @@ const Cart = () => {
         showNotification(`${item.name} removed from cart`, "error");
     };
 
-    const handleQuantityChange = (id: number, quantity: number) => {
+    const handleQuantityUpdate = (id: number, quantity: number) => {
         dispatch({type: "UPDATE_QUANTITY", payload: {id, quantity}});
+    };
+
+    const increaseQuantity = (id: number, quantity: number) => {
+        handleQuantityUpdate(id, quantity + 1);
+    };
+
+    const decreaseQuantity = (id: number, quantity: number) => {
+       if (quantity > 1) {
+            handleQuantityUpdate(id, quantity - 1);
+       };
     };
 
     const total = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -29,14 +40,16 @@ const Cart = () => {
                                 <p>₦{item.price} x</p>
                             </div>
                             <div className="flex items-center gap-2">
-                                <input 
-                                    type="number"
-                                    value={item.quantity}
-                                    onChange={(e) => handleQuantityChange(item.id, Number(e.target.value))} 
-                                    className="w-16 p-1 border rounded"
-                                    min={1}
-                                />
-                                <button onClick={() => handleRemove(item)} className="text-red-500">Remove</button>
+                                <button
+                                    onClick={() => decreaseQuantity(item.id, item.quantity)}
+                                    className="flex items-center justify-center w-6 h-6 bg-gray-300 rounded-full cursor-pointer"
+                                >-</button>
+                                <p>{item.quantity}</p>
+                                <button
+                                    onClick={() => increaseQuantity(item.id, item.quantity)}
+                                    className="flex items-center justify-center w-6 h-6 bg-gray-300 rounded-full cursor-pointer"
+                                >+</button>
+                                <button onClick={() => handleRemove(item)} className="text-red-500 cursor-pointer"><Trash2 /></button>
                             </div>
                         </div>
                     ))}

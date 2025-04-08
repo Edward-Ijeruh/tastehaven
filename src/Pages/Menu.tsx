@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useCart} from "../Components/CartContext";
 import {MenuItems} from "../Components/MenuItems";
 import { useNotification } from "../Components/NotificationContext";
@@ -8,17 +8,27 @@ const Menu = () => {
     const {dispatch} = useCart();
     const {showNotification} = useNotification();
 
+    //Get search query from local storage
+    useEffect(() => {
+        const savedSearchQuery = localStorage.getItem("searchQuery");
+        if (savedSearchQuery) {
+            setSeacrhQuery(savedSearchQuery);
+        }
+    }, []);
+
+    //Update to local storage
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const query = e.target.value;
+        setSeacrhQuery(query);
+        localStorage.setItem("searchQuery", query);
+        dispatch({type: "SET_SEARCH_QUERY", payload: query});
+    };
+
     // Filter items
     const filteredItems = MenuItems.filter(item => 
         item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         item.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
-
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const query = e.target.value;
-        setSeacrhQuery(query);
-        dispatch({type: "SET_SEARCH_QUERY", payload: query});
-    };
 
     const handleAddToCart = (item: typeof MenuItems[0]) => {
         const itemWithQuantity = { ...item, quantity: 1 };
@@ -38,7 +48,7 @@ const Menu = () => {
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredItems.map(item => (
-                    <div key={item.id} className="border p-4 rounded shadow-md">
+                    <div key={item.id} className=" p-4 rounded shadow-md">
                         <img src={item.img} alt={item.name} className="w-full h-48 object-cover mb-4" />
                         <h3 className="font-semibold text-lg">{item.name}</h3>
                         <p className="text-gray-700">₦{item.price}</p>

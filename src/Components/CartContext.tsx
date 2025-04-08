@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useReducer, useEffect} from "react";
 
 //Custom type declarations
-type CartItem = {
+export type CartItem = {
     id: number;
     name: string;
     price: number;
@@ -35,6 +35,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
             if (itemIndex >= 0) {
                 const updatedItems = [...state.items];
                 updatedItems[itemIndex].quantity += 1;
+                localStorage.setItem("cart", JSON.stringify(state.items));
                 return {...state, items: updatedItems};
             }
             return {...state, items: [...state.items, action.payload]};
@@ -47,6 +48,8 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
             };
         case "CLEAR_CART":
             return {...state, items: []};
+        case "LOAD_CART":
+            return {...state, items:action.payload};
         case "SET_SEARCH_QUERY":
             return {...state, searchQuery: action.payload};
         default:
@@ -55,7 +58,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 };
 
 //Context
-const CartContext = createContext<{state: CartState; dispatch: React.Dispatch<CartAction>}| undefined>(undefined)
+ export const CartContext = createContext<{state: CartState; dispatch: React.Dispatch<CartAction>}| undefined>(undefined)
 
 //Provider
 type CartProviderProps = {
@@ -64,10 +67,6 @@ type CartProviderProps = {
 
 export const CartProvider = ({children}: CartProviderProps) => {
     const [state, dispatch] = useReducer(cartReducer, initialState);
-
-    useEffect(() => {
-        localStorage.setItem("cart", JSON.stringify(state.items));
-    }, [state.items]);
 
     useEffect(() => {
         const savedCart = localStorage.getItem("cart");
