@@ -1,11 +1,14 @@
 import {useCart} from "../Components/CartContext";
 import {Link} from "react-router-dom";
+import { useNotification } from "../Components/NotificationContext";
 
 const Cart = () => {
     const {state, dispatch} = useCart();
+    const {showNotification} =useNotification();
 
-    const handleRemove = (id: number) => {
-        dispatch({type: "REMOVE_ITEM", payload: id});
+    const handleRemove = (item: typeof state.items[0]) => {
+        dispatch({type: "REMOVE_ITEM", payload: item.id});
+        showNotification(`${item.name} removed from cart`, "error");
     };
 
     const handleQuantityChange = (id: number, quantity: number) => {
@@ -33,7 +36,7 @@ const Cart = () => {
                                     className="w-16 p-1 border rounded"
                                     min={1}
                                 />
-                                <button onClick={() => handleRemove(item.id)} className="text-red-500">Remove</button>
+                                <button onClick={() => handleRemove(item)} className="text-red-500">Remove</button>
                             </div>
                         </div>
                     ))}

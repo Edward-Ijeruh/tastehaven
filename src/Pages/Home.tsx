@@ -44,7 +44,7 @@ const Home = () => {
               alt="Fast Delivery"
               className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
             />
-            <h3 className="text-xl font-semibold text-gray-800">Fast Delivery</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">Fast Delivery</h3>
             <p className="hidden sm:block text-sm text-gray-600 mt-2">
               Enjoy your meals delivered to your door quickly. We prioritize speed without compromising quality.
             </p>
@@ -57,7 +57,7 @@ const Home = () => {
               alt="Fresh Ingredients"
               className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
             />
-            <h3 className="text-xl font-semibold text-gray-800">Fresh Ingredients</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">Fresh Ingredients</h3>
             <p className="hidden sm:block text-sm text-gray-600 mt-2">
               We use only the freshest ingredients in our meals to ensure you always get the best taste and quality.
             </p>
@@ -70,7 +70,7 @@ const Home = () => {
               alt="Order Anytime"
               className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
             />
-            <h3 className="text-xl font-semibold text-gray-800">Order Anytime</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">Order Anytime</h3>
             <p className="hidden sm:block text-sm text-gray-600 mt-2">
               Whether it’s breakfast, lunch, or dinner, you can place your order at any time, and we’ll bring it to you.
             </p>
@@ -83,7 +83,7 @@ const Home = () => {
               alt="Secure Payment"
               className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
             />
-            <h3 className="text-xl font-semibold text-gray-800">Secure Payment</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">Secure Payment</h3>
             <p className="hidden sm:block text-sm text-gray-600 mt-2">
               Our platform offers secure and reliable payment methods, ensuring your transaction is safe and easy.
             </p>
@@ -96,7 +96,7 @@ const Home = () => {
               alt="Customer Support"
               className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
             />
-            <h3 className="text-xl font-semibold text-gray-800">24/7 Customer Support</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">24/7 Customer Support</h3>
             <p className="hidden sm:block text-sm text-gray-600 mt-2">
               Our support team is available around the clock to assist with any issues or questions you may have.
             </p>
@@ -109,7 +109,7 @@ const Home = () => {
               alt="Loyalty Program"
               className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
             />
-            <h3 className="text-xl font-semibold text-gray-800">Loyalty Program</h3>
+            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">Loyalty Program</h3>
             <p className="hidden sm:block text-sm text-gray-600 mt-2">
               Earn points with every order and unlock exclusive discounts and rewards through our loyalty program.
             </p>
