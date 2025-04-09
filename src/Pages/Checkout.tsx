@@ -14,7 +14,7 @@ const Checkout = () => {
         showCheckoutModal();
         setTimeout(() => {
             window.location.href = "/cart";
-        }, 1000);
+        }, 500);
     };
 
     return (
