@@ -50,7 +50,7 @@ const Menu = () => {
                     className="p-2 mb-4 border border-gray-300 rounded"
                 />
                 <Link to="/cart" className="flex items-center mb-4 gap-2 px-4 py-2 bg-yellow-400 text-black rounded">
-                    Go to Cart <ShoppingCart size={18} />
+                    Cart <ShoppingCart size={18} />
                 </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
