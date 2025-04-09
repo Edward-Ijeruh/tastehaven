@@ -47,6 +47,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
                 items: state.items.map(item => item.id === action.payload.id ? {...item, quantity: action.payload.quantity} : item)
             };
         case "CLEAR_CART":
+            localStorage.setItem("cart", JSON.stringify([]));
             return {...state, items: []};
         case "LOAD_CART":
             return {...state, items:action.payload};

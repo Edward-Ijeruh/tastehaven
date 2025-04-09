@@ -115,6 +115,50 @@ const Home = () => {
             </p>
           </div>
         </div>
+
+        {/* Customer Reviews Section */}
+        <div className="p-6 max-w-5xl mx-auto text-center space-y-6 mt-10 bg-gray-800 text-white rounded-lg shadow-lg">
+          <h2 className="text-3xl font-semibold">What Our Customers Say</h2>
+          <p className="text-lg text-gray-300">Here's what some of our happy customers have to say about TasteHaven:</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Review 1 */}
+            <div className="bg-gray-700 p-6 rounded-lg shadow-md">
+              <p className="text-sm text-gray-300 mb-4">
+                "The food is always fresh and delicious! The delivery is so fast, and the customer service is top-notch. Highly recommend TasteHaven!"
+              </p>
+              <p className="font-bold text-gray-100">- Adebayo A.</p>
+            </div>
+
+            {/* Review 2 */}
+            <div className="bg-gray-700 p-6 rounded-lg shadow-md">
+              <p className="text-sm text-gray-300 mb-4">
+                "I love the loyalty program! It’s amazing to get rewards while enjoying my favorite meals. TasteHaven has become my go-to!"
+              </p>
+              <p className="font-bold text-gray-100">- Fatima O.</p>
+            </div>
+
+            {/* Review 3 */}
+            <div className="bg-gray-700 p-6 rounded-lg shadow-md">
+              <p className="text-sm text-gray-300 mb-4">
+                "Great variety of dishes and easy online ordering process. TasteHaven never disappoints—keep up the excellent work!"
+              </p>
+              <p className="font-bold text-gray-100">- Kehinde M.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Call to Action Section */}
+        <div className="bg-yellow-50 p-6 max-w-5xl mx-auto text-center rounded-lg mt-20 shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-800">We'd Love to Hear From You!</h2>
+                <p className="text-lg text-gray-700 mt-2">
+                    Got questions, feedback, or simply want to say hello? Our team is here to help. Contact us today!
+                </p>
+                <Link to="/contact">
+                    <button className="mt-4 bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg hover:bg-yellow-500 transition duration-300">
+                        Contact Us
+                    </button>
+                </Link>
+            </div>
         </div>
   
         

@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
 import {useCart} from "../Components/CartContext";
 import {MenuItems} from "../Components/MenuItems";
-import { useNotification } from "../Components/NotificationContext";
+import {useNotification} from "../Components/NotificationContext";
+import {Link} from "react-router-dom";
+import {ShoppingCart} from "lucide-react";
 
 const Menu = () => {
     const [searchQuery, setSeacrhQuery] = useState<string>("");
@@ -39,13 +41,18 @@ const Menu = () => {
     return (
         <div className="p-4">
             <h1 className="text-2xl font-bold mb-4">Menu</h1>
-            <input
-                type="text"
-                value={searchQuery}
-                onChange={handleSearch}
-                placeholder="Search for items..."
-                className="p-2 mb-4 border border-gray-300 rounded"
-            />
+            <div className="flex items-center justify-between mb-4">
+                <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    placeholder="Search for items..."
+                    className="p-2 mb-4 border border-gray-300 rounded"
+                />
+                <Link to="/cart" className="flex items-center mb-4 gap-2 px-4 py-2 bg-yellow-400 text-black rounded">
+                    Go to Cart <ShoppingCart size={18} />
+                </Link>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {filteredItems.map(item => (
                     <div key={item.id} className=" p-4 rounded shadow-md">

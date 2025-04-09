@@ -6,7 +6,7 @@ import {Menu, X, Home, ShoppingCart, Phone, Utensils} from "lucide-react";
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const context = useContext(CartContext);
-    const cartItemCount = context?.state.items.reduce((total: number, item: CartItem) => total + item.quantity, 0);
+    const cartItemCount = context?.state?.items?.reduce((total: number, item: CartItem) => total + item.quantity, 0) || 0;
 
     const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -22,11 +22,11 @@ const Navbar = () => {
                     <Link to="/cart" className="flex items-center gap-2 hover:text-yellow-300">
                         <ShoppingCart size={18} /> 
                             Cart
-                            {cartItemCount && (
+                            {cartItemCount > 0 && (
                                 <span className="mt-1 text-[9px] bg-yellow-300 text-black rounded-full px-2 py-1">{cartItemCount}</span>
                             )}
                     </Link>
-                    <Link to="/contact" className="flex items-center gap-2 hover:text-yellow-300"><Phone size={18} /> Contact</Link>                    
+                    <Link to="/contact" className="flex items-center gap-2 hover:text-yellow-300"><Phone size={18} /> Contact Us</Link>                    
                 </div>  
 
                 {/* Hamburger Icon */}
@@ -46,12 +46,12 @@ const Navbar = () => {
                     </Link>
                     <Link onClick={() => setIsOpen(false)} to="/cart" className="flex items-center gap-2 hover:text-yellow-300">
                         <ShoppingCart size={18} /> Cart
-                            {cartItemCount && (
+                            {cartItemCount > 0 && (
                                 <span className="mt-1 text-[9px] bg-yellow-300 text-black rounded-full px-2 py-1">{cartItemCount}</span>
                             )}  
                     </Link>
                     <Link onClick={() => setIsOpen(false)} to="/contact" className="flex items-center gap-2 hover:text-yellow-300">
-                        <Phone size={18} /> Contact
+                        <Phone size={18} /> Contact Us
                     </Link>
                 </div>
             )}
