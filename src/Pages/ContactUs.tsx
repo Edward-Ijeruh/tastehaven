@@ -28,7 +28,7 @@ const ContactUs = () => {
         <div className="p-6 max-w-3xl mx-auto">
             <h1 className="text-2xl font-bold mb-6">Contact Us</h1>
             <Link to="/" className="flex items-center gap-2 my-5 px-4 py-2 bg-yellow-400 text-black rounded w-40">
-                            Back to Menu <Home size={18} />
+                            Back to Home <Home size={18} />
                     </Link>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <input
