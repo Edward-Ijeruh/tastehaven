@@ -29,14 +29,14 @@ const initialState: CartState = {
 
 //Reducer function
 const cartReducer = (state: CartState, action: CartAction): CartState => {
-    let updatedItems;
+    let updatedItems: CartItem[];
     switch (action.type) {
         case "ADD_ITEM":
             const itemIndex = state.items.findIndex(
                 (item) => item.id === action.payload.id,
             );
             if (itemIndex >= 0) {
-                const updatedItems = [...state.items];
+                updatedItems = [...state.items];
                 updatedItems[itemIndex].quantity += 1;
             } else {
                 updatedItems = [...state.items, action.payload];
