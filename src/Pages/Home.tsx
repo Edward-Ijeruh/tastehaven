@@ -21,7 +21,7 @@ const Home = () => {
         >
           <div className="absolute inset-0 bg-black opacity-50 h-full"></div>
           <h1 className="relative text-3xl md:text-4xl font-bold z-10 text-shadow-lg">Welcome to TasteHaven!</h1>
-          <p className="relative text-xl z-10 text-shadow-lg">Delicious meals, delivered fast!</p>
+          <p className="relative text-xl z-10 text-shadow-lg">Delicious meals, fast deliveries!</p>
           <Link to="/menu">
             <button className="relative bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg z-10 text-shadow-lg mt-4 hover:bg-yellow-500 transition duration-300">
               Order Now
