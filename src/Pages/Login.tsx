@@ -2,7 +2,7 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import backgroundImage from "../assets/hero_background.jpg";
+//import backgroundImage from "../assets/hero_background.jpg";
 
 export default function Login() {
   const [email, setEmail] = useState("");

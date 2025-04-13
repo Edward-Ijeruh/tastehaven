@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import backgroundImage from "../assets/hero_background.jpg";
+//import backgroundImage from "../assets/hero_background.jpg";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
