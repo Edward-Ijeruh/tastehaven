@@ -47,7 +47,7 @@ export default function Login() {
             />
             <button
               type="submit"
-              className="w-full bg-red-500 text-white p-2 rounded cursor-pointer"
+              className="w-full bg-black text-white p-2 rounded cursor-pointer"
             >
               Log In
             </button>

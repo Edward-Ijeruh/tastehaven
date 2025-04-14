@@ -89,7 +89,7 @@ const Navbar = () => {
             <>
               <Link
                 to="/login"
-                className="flex items-center gap-2 hover:text-yellow-300"
+                className={`flex items-center gap-2 hover:text-yellow-300 ${isActive("/login") ? "text-yellow-300" : ""}`}
               >
                 <User size={18} /> Login/Sign up
               </Link>
@@ -97,7 +97,7 @@ const Navbar = () => {
           ) : (
             <Link
               to="/profile"
-              className="flex items-center gap-2 hover:text-yellow-300"
+              className={`flex items-center gap-2 hover:text-yellow-300 ${isActive("/profile") ? "text-yellow-300" : ""}`}
             >
               <User size={18} /> Profile
             </Link>
@@ -156,7 +156,7 @@ const Navbar = () => {
               <Link
                 onClick={() => setIsOpen(false)}
                 to="/login"
-                className="flex items-center gap-2 hover:text-yellow-300"
+                className={`flex items-center gap-2 hover:text-yellow-300 ${isActive("/login") ? "text-yellow-300" : ""}`}
               >
                 <User size={18} /> Login/ Sign up
               </Link>
@@ -165,7 +165,7 @@ const Navbar = () => {
             <Link
               onClick={() => setIsOpen(false)}
               to="/profile"
-              className="flex items-center gap-2 hover:text-yellow-300"
+              className={`flex items-center gap-2 hover:text-yellow-300 ${isActive("/profile") ? "text-yellow-300" : ""}`}
             >
               <User size={18} /> Profile
             </Link>

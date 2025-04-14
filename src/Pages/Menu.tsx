@@ -63,13 +63,13 @@ const Menu = () => {
                         <img
                             src={item.img}
                             alt={item.name}
-                            className="w-full h-48 object-cover mb-4"
+                            className={`w-full h-48 mb-4 ${item.category === "Soda Drinks" ? "object-contain bg-white" : "object-cover"}`}
                         />
                         <h3 className="font-semibold text-lg">{item.name}</h3>
                         <p className="text-gray-700">₦{item.price}</p>
                         <button
                             onClick={() => handleAddToCart(item)}
-                            className="mt-2 px-4 py-2 bg-green-500 text-white rounded cursor-pointer"
+                            className="mt-2 px-4 py-2 bg-black text-white rounded cursor-pointer"
                         >
                             Add to Cart
                         </button>

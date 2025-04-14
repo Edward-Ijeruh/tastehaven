@@ -66,7 +66,7 @@ export default function Signup() {
             />
             <button
               type="submit"
-              className="w-full bg-red-500 text-white p-2 rounded cursor-pointer"
+              className="w-full bg-black text-white p-2 rounded cursor-pointer"
             >
               Sign Up
             </button>
