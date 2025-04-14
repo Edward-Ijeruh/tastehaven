@@ -1,4 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase";
+import { getUserCart, saveUserCart } from "../cartService";
 
 //Custom type declarations
 export type CartItem = {
@@ -81,28 +84,53 @@ type CartProviderProps = {
 
 export const CartProvider = ({ children }: CartProviderProps) => {
     const [state, dispatch] = useReducer(cartReducer, initialState);
+    const [userId, setUserId] = React.useState<string | null>(null);
 
+    //Track current user
     useEffect(() => {
-        const savedCart = localStorage.getItem("cart");
-        if (savedCart) {
-            try {
-                const parsedCart = JSON.parse(savedCart);
-                //Ensure parsedCart is an array before dispatching
-                if (Array.isArray(parsedCart)) {
-                    dispatch({
-                        type: "LOAD_CART",
-                        payload: parsedCart as CartItem[],
-                    });
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUserId(user.uid);
+            } else {
+                setUserId(null);
+            }
+        });
+        return () => unsubscribe();
+    }, []);
+
+    //Load cart from Firebase when user logs in/from localStorage for guests
+    useEffect(() => {
+        if (userId) {
+            getUserCart(userId).then((cartItems) => {
+                dispatch({ type: "LOAD_CART", payload: cartItems });
+            });
+        } else {
+            const savedCart = localStorage.getItem("cart");
+            if (savedCart) {
+                try {
+                    const parsedCart = JSON.parse(savedCart);
+                    if (Array.isArray(parsedCart)) {
+                        dispatch({
+                            type: "LOAD_CART",
+                            payload: parsedCart as CartItem[],
+                        });
+                    }
+                } catch (e) {
+                    console.error("Failed to parse saved cart:", e);
+                    dispatch({ type: "LOAD_CART", payload: [] });
                 }
-            } catch (e) {
-                //Handle JSON parsing error
-                console.error("Failed to parse saved cart:", e);
+            } else {
                 dispatch({ type: "LOAD_CART", payload: [] });
             }
-        } else {
-            dispatch({ type: "LOAD_CART", payload: [] });
         }
-    }, []);
+    }, [userId]);
+
+    //Save cart to Firebase when cart items change
+    useEffect(() => {
+        if (userId) {
+            saveUserCart(userId, state.items);
+        }
+    }, [state.items, userId]);
 
     return (
         <CartContext.Provider value={{ state, dispatch }}>
