@@ -10,7 +10,11 @@ import toast from "react-hot-toast";
 // Declare PaystackPop globally for TypeScript
 declare global {
   interface Window {
-    PaystackPop: any;
+    PaystackPop: {
+      setup: (options: any) => {
+        openIframe: () => void;
+      };
+    };
   }
 }
 
@@ -31,45 +35,19 @@ const Checkout = () => {
     }
 
     try {
-      console.log("Loading Paystack script..."); // Debugging script load
       await loadPaystackScript();
-
-      if (!window.PaystackPop) {
-        toast.error("Paystack script failed to load.");
-        return;
-      }
-
       const reference = `ref-${Date.now()}`;
 
-      console.log("Paystack Reference:", reference);
-      console.log("User Email:", user.email);
+      const onPaymentSuccess = () => {
+        handlePaymentSuccess(reference);
+      };
 
       const handler = window.PaystackPop.setup({
         key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
         email: user.email,
         amount: total * 100,
         ref: reference,
-        callback: async (response: any) => {
-          try {
-            console.log("Payment Success Response:", response); // Debug response from Paystack
-            await logOrderToFirestore(user.uid, {
-              items: state.items,
-              total,
-              reference: response.reference, // Use the reference from the response
-              status: "paid",
-            });
-            dispatch({ type: "CLEAR_CART" });
-            toast.success("Payment successful! Order Placed.");
-            showCheckoutModal();
-
-            setTimeout(() => {
-              window.location.href = "/cart";
-            }, 2000);
-          } catch (error) {
-            console.error("Error logging order:", error);
-            toast.error("Payment succeeded, but order logging failed.");
-          }
-        },
+        callback: onPaymentSuccess,
         onClose: () => {
           toast.error("Payment cancelled");
         },
@@ -79,6 +57,31 @@ const Checkout = () => {
     } catch (error) {
       console.error("Payment error", error);
       toast.error("Payment failed. Please try again.");
+    }
+  };
+
+  const handlePaymentSuccess = async (reference: string) => {
+    if (!user) {
+      toast.error("User not found");
+      return;
+    }
+
+    try {
+      await logOrderToFirestore(user.uid, {
+        items: state.items,
+        total,
+        reference,
+        status: "completed",
+      });
+
+      dispatch({ type: "CLEAR_CART" });
+      showCheckoutModal();
+
+      setTimeout(() => {
+        window.location.href = "/cart";
+      }, 3000);
+    } catch (error) {
+      console.error("Failed to log order to Firestore", error);
     }
   };
 
