@@ -18,3 +18,19 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const logOrderToFirestore = async (
+  userId: string,
+  order: {
+    items: CartItemType[];
+    total: number;
+    reference: string;
+    status: string;
+  },
+) => {
+  const orderRef = collection(db, "orders");
+  await addDoc(orderRef, {
+    ...order,
+    userId,
+    createdAt: serverTimestamp(),
+  });
+};
