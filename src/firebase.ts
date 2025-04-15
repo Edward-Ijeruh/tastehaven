@@ -1,13 +1,14 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import {
   getFirestore,
   collection,
   addDoc,
   serverTimestamp,
 } from "firebase/firestore";
-import { CartItemType } from "./Components/CartContext";
-import { getAuth } from "firebase/auth";
+import { CartItem } from "./Components/CartContext";
 
+// Firebase configuration
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -15,33 +16,29 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASURMENT_ID,
 };
 
-export const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
-export const auth = getAuth(app);
+// Initialization
+const app = initializeApp(firebaseConfig);
 
+export const auth = getAuth(app);
+export const db = getFirestore(app);
+
+// Function to log orders to Firestore
 export const logOrderToFirestore = async (
   userId: string,
-  items: CartItemType[],
-  total: number,
-  reference: string,
+  order: {
+    items: CartItem[];
+    total: number;
+    reference: string;
+    status: string;
+  },
 ) => {
-  try {
-    const ordersRef = collection(db, "orders");
-
-    await addDoc(ordersRef, {
-      userId,
-      items,
-      total,
-      reference,
-      timestamp: serverTimestamp(),
-      status: "paid",
-    });
-
-    console.log("Order successfully logged to Firestore.");
-  } catch (error) {
-    console.error("Error logging order:", error);
-    throw error;
-  }
+  const orderRef = collection(db, "orders");
+  await addDoc(orderRef, {
+    ...order,
+    userId,
+    createdAt: serverTimestamp(),
+  });
 };

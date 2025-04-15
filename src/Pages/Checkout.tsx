@@ -7,6 +7,13 @@ import { loadPaystackScript } from "../paystackUtilities/loadPaystackScript";
 import { logOrderToFirestore } from "../firebase";
 import toast from "react-hot-toast";
 
+// Declare PaystackPop globally for TypeScript
+declare global {
+  interface Window {
+    PaystackPop: any;
+  }
+}
+
 const Checkout = () => {
   const { state, dispatch } = useCart();
   const { showCheckoutModal } = useNotification();
@@ -24,23 +31,33 @@ const Checkout = () => {
     }
 
     try {
+      console.log("Loading Paystack script..."); // Debugging script load
       await loadPaystackScript();
+
+      if (!window.PaystackPop) {
+        toast.error("Paystack script failed to load.");
+        return;
+      }
+
       const reference = `ref-${Date.now()}`;
 
-      const handler = (window as any).PaystackPop.setup({
+      console.log("Paystack Reference:", reference);
+      console.log("User Email:", user.email);
+
+      const handler = window.PaystackPop.setup({
         key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
         email: user.email,
         amount: total * 100,
         ref: reference,
-        callback: async () => {
+        callback: async (response: any) => {
           try {
+            console.log("Payment Success Response:", response); // Debug response from Paystack
             await logOrderToFirestore(user.uid, {
               items: state.items,
               total,
-              reference,
+              reference: response.reference, // Use the reference from the response
               status: "paid",
             });
-
             dispatch({ type: "CLEAR_CART" });
             toast.success("Payment successful! Order Placed.");
             showCheckoutModal();

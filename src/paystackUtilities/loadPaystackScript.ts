@@ -6,8 +6,14 @@ export const loadPaystackScript = (): Promise<void> => {
     const script = document.createElement("script");
     script.src = "https://js.paystack.co/v1/inline.js";
     script.id = "paystack-script";
-    script.onload = () => resolve();
-    script.onerror = () => reject(new Error("Failed to load Paystack script"));
+    script.onload = () => {
+      console.log("Paystack script loaded successfully!");
+      resolve();
+    };
+    script.onerror = () => {
+      console.error("Failed to load Paystack script");
+      reject(new Error("Failed to load Paystack script"));
+    };
     document.body.appendChild(script);
   });
 };
