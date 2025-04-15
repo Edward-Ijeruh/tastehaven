@@ -1,36 +1,47 @@
 import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { CartItemType } from "./Components/CartContext";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
 
-//Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBcr2gukKI29af8yQEkrjClEc7pbuAA9eY",
-  authDomain: "tastehaven-adc88.firebaseapp.com",
-  projectId: "tastehaven-adc88",
-  storageBucket: "tastehaven-adc88.firebasestorage.app",
-  messagingSenderId: "542285997332",
-  appId: "1:542285997332:web:a625dba312d3274da5ce01",
-  measurementId: "G-SM63558LE8",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-//Initialization
-const app = initializeApp(firebaseConfig);
-
-export const auth = getAuth(app);
+export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
+export const auth = getAuth(app);
+
 export const logOrderToFirestore = async (
   userId: string,
-  order: {
-    items: CartItemType[];
-    total: number;
-    reference: string;
-    status: string;
-  },
+  items: CartItemType[],
+  total: number,
+  reference: string,
 ) => {
-  const orderRef = collection(db, "orders");
-  await addDoc(orderRef, {
-    ...order,
-    userId,
-    createdAt: serverTimestamp(),
-  });
+  try {
+    const ordersRef = collection(db, "orders");
+
+    await addDoc(ordersRef, {
+      userId,
+      items,
+      total,
+      reference,
+      timestamp: serverTimestamp(),
+      status: "paid",
+    });
+
+    console.log("Order successfully logged to Firestore.");
+  } catch (error) {
+    console.error("Error logging order:", error);
+    throw error;
+  }
 };

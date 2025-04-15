@@ -6,6 +6,13 @@ import { loadPaystackScript } from "../paystackUtilities/loadPaystackScript";
 import { logOrderToFirestore } from "../firebase";
 import toast from "react-hot-toast";
 import { useAuth } from "../Components/AuthContext";
+import { CartItemType } from "../Components/CartContext";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 const Checkout = () => {
   const { state, dispatch } = useCart();
