@@ -1,18 +1,11 @@
 import { useCart } from "../Components/CartContext";
 import { useNotification } from "../Components/NotificationContext";
+import { useAuth } from "../Components/AuthContext";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { loadPaystackScript } from "../paystackUtilities/loadPaystackScript";
 import { logOrderToFirestore } from "../firebase";
 import toast from "react-hot-toast";
-import { useAuth } from "../Components/AuthContext";
-import { CartItemType } from "../Components/CartContext";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore";
 
 const Checkout = () => {
   const { state, dispatch } = useCart();
@@ -39,28 +32,26 @@ const Checkout = () => {
         email: user.email,
         amount: total * 100,
         ref: reference,
-        callback: () => {
-          (async () => {
-            try {
-              await logOrderToFirestore(user.uid, {
-                items: state.items,
-                total,
-                reference,
-                status: "paid",
-              });
+        callback: async () => {
+          try {
+            await logOrderToFirestore(user.uid, {
+              items: state.items,
+              total,
+              reference,
+              status: "paid",
+            });
 
-              dispatch({ type: "CLEAR_CART" });
-              toast.success("Payment successful! Order Placed.");
-              showCheckoutModal();
+            dispatch({ type: "CLEAR_CART" });
+            toast.success("Payment successful! Order Placed.");
+            showCheckoutModal();
 
-              setTimeout(() => {
-                window.location.href = "/cart";
-              }, 2000);
-            } catch (error) {
-              console.error("Error logging order:", error);
-              toast.error("Payment succeeded, but order logging failed.");
-            }
-          })();
+            setTimeout(() => {
+              window.location.href = "/cart";
+            }, 2000);
+          } catch (error) {
+            console.error("Error logging order:", error);
+            toast.error("Payment succeeded, but order logging failed.");
+          }
         },
         onClose: () => {
           toast.error("Payment cancelled");
