@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { loadPaystackScript } from "../paystackUtilities/loadPaystackScript";
 import { logOrderToFirestore } from "../firebase";
-import toast from "react-hot-toast";
+//import toast from "react-hot-toast";
 
 // Declare PaystackPop globally for TypeScript
 declare global {
@@ -30,7 +30,7 @@ const Checkout = () => {
 
   const handleCheckout = async () => {
     if (!user || !user.email) {
-      toast.error("Please login to checkout");
+      //toast.error("Please login to checkout");
       return;
     }
 
@@ -49,20 +49,20 @@ const Checkout = () => {
         ref: reference,
         callback: onPaymentSuccess,
         onClose: () => {
-          toast.error("Payment cancelled");
+          //toast.error("Payment cancelled");
         },
       });
 
       handler.openIframe();
     } catch (error) {
       console.error("Payment error", error);
-      toast.error("Payment failed. Please try again.");
+      //toast.error("Payment failed. Please try again.");
     }
   };
 
   const handlePaymentSuccess = async (reference: string) => {
     if (!user) {
-      toast.error("User not found");
+      //toast.error("User not found");
       return;
     }
 
