@@ -34,11 +34,11 @@ const Home = () => {
       </div>
 
       {/* Introduction Section */}
-      <div className="p-3 max-w-5xl mx-auto text-center space-y-6">
+      <div className="p-3 mt-8 max-w-5xl mx-auto text-center space-y-6">
         <h2 className="text-3xl font-semibold">What We Offer</h2>
         <p className="text-lg text-gray-700">
-          At TasteHaven, we offer a variety of delicious meals, all prepared
-          with fresh ingredients and delivered straight to your door.
+          At TasteHaven, we offer a variety of delicious meals, <br /> all
+          prepared with fresh ingredients and delivered straight to your door.
         </p>
         {/* Service Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
