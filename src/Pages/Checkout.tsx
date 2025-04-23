@@ -4,10 +4,7 @@ import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { loadPaystackScript } from "../paystackUtilities/loadPaystackScript";
 import { logOrderToFirestore } from "../firebase";
-<<<<<<< HEAD
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
->>>>>>> 78df715630fbb3b4d86592090a8efefae04bd3f7
 
 // Declare PaystackPop globally for TypeScript
 declare global {
