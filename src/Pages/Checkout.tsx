@@ -1,11 +1,11 @@
 import { useCart } from "../Components/CartContext";
-import { useNotification } from "../Components/NotificationContext";
 import { useAuth } from "../Components/AuthContext";
 import { Link } from "react-router-dom";
 import { ShoppingCart } from "lucide-react";
 import { loadPaystackScript } from "../paystackUtilities/loadPaystackScript";
 import { logOrderToFirestore } from "../firebase";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 // Declare PaystackPop globally for TypeScript
 declare global {
@@ -20,8 +20,8 @@ declare global {
 
 const Checkout = () => {
   const { state, dispatch } = useCart();
-  const { showCheckoutModal } = useNotification();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const total = state.items.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -75,11 +75,7 @@ const Checkout = () => {
       });
 
       dispatch({ type: "CLEAR_CART" });
-      showCheckoutModal();
-
-      setTimeout(() => {
-        window.location.href = "/cart";
-      }, 3000);
+      navigate("/cart", { state: { fromCheckout: true } });
     } catch (error) {
       console.error("Failed to log order to Firestore", error);
     }

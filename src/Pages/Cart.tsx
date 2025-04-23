@@ -1,11 +1,14 @@
 import { useCart } from "../Components/CartContext";
 import { Link } from "react-router-dom";
 import { useNotification } from "../Components/NotificationContext";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Trash2, Utensils } from "lucide-react";
 
 const Cart = () => {
     const { state, dispatch } = useCart();
     const { showNotification } = useNotification();
+    const location = useLocation();
 
     const handleRemove = (item: (typeof state.items)[0]) => {
         dispatch({ type: "REMOVE_ITEM", payload: item.id });
@@ -30,6 +33,12 @@ const Cart = () => {
         (sum, item) => sum + item.price * item.quantity,
         0,
     );
+
+    useEffect(() => {
+        if (location.state?.fromCheckout) {
+            showNotification("Order completed!", "success");
+        }
+    }, [location.state, dispatch, showNotification]);
 
     return (
         <div className="p-4 max-w-3xl mx-auto">

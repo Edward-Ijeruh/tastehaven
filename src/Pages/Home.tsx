@@ -12,7 +12,7 @@ const Home = () => {
     <div className="flex flex-col items-center pb-10">
       {/* Hero Section */}
       <div
-        className="relative text-white w-full h-72 sm:h-96 flex flex-col justify-center items-center space-y-4 text-center px-4"
+        className="relative text-white w-full h-96 flex flex-col justify-center items-center space-y-4 text-center px-4"
         style={{
           backgroundImage: `url(${heroImage})`,
           backgroundSize: "cover",
@@ -34,7 +34,7 @@ const Home = () => {
       </div>
 
       {/* Introduction Section */}
-      <div className="p-6 max-w-5xl mx-auto text-center space-y-6">
+      <div className="p-3 max-w-5xl mx-auto text-center space-y-6">
         <h2 className="text-3xl font-semibold">What We Offer</h2>
         <p className="text-lg text-gray-700">
           At TasteHaven, we offer a variety of delicious meals, all prepared
@@ -178,7 +178,7 @@ const Home = () => {
         </div>
 
         {/* Call to Action Section */}
-        <div className="bg-yellow-50 p-6 max-w-5xl mx-auto text-center rounded-lg mt-20 shadow-lg">
+        <div className="bg-yellow-50 p-6 max-w-5xl mx-auto text-center rounded-lg mt-10 shadow-lg">
           <h2 className="text-2xl font-bold text-gray-800">
             We'd Love to Hear From You!
           </h2>
