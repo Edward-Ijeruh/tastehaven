@@ -3,7 +3,6 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-//import backgroundImage from "../assets/hero_background.jpg";
 
 export default function Signup() {
   const [email, setEmail] = useState("");
@@ -19,7 +18,7 @@ export default function Signup() {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password,
+        password
       );
       const user = userCredential.user;
       await setDoc(doc(db, "users", user.uid), {
@@ -33,67 +32,86 @@ export default function Signup() {
   };
 
   return (
-    <div className="hero-section flex flex-col md:flex-row">
-      {/* Form container */}
-      <div className="form-container flex-1 flex justify-center items-center p-6 bg-white">
-        <div className="max-w-md w-full mx-auto p-6 bg-white rounded-xl shadow-md mt-10">
-          <h2 className="text-2xl font-bold mb-4">Create Account</h2>
+    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-2 bg-white">
+      {/* Left column: Form */}
+      <div className="flex flex-col items-center justify-center p-8 lg:p-12 order-2 lg:order-1">
+        <div className="w-full max-w-md space-y-8">
+          <div>
+            <h1 className="text-3xl font-bold text-stone-900 tracking-tight">
+              Create Account
+            </h1>
+            <p className="mt-2 text-stone-600">
+              Join TasteHaven and start your culinary journey.
+            </p>
+          </div>
+
           {error && <p className="text-red-500">{error}</p>}
-          <form onSubmit={handleSignup} className="space-y-4">
-            <input
-              type="text"
-              placeholder="User Name (eg. your first name)"
-              className="w-full p-2 border rounded"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              className="w-full p-2 border rounded"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full p-2 border rounded"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <button
-              type="submit"
-              className="w-full bg-black text-white p-2 rounded cursor-pointer"
-            >
-              Sign Up
-            </button>
+
+          <form onSubmit={handleSignup} className="space-y-6">
+            <div>
+              <input
+                type="text"
+                placeholder="User Name (eg. your first name)"
+                className="w-full px-4 py-3 rounded-lg bg-stone-100 text-stone-900 border-transparent focus:ring-2 focus:ring-amber-600 focus:border-transparent placeholder-stone-400"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <input
+                type="email"
+                placeholder="Email"
+                className="w-full px-4 py-3 rounded-lg bg-stone-100 text-stone-900 border-transparent focus:ring-2 focus:ring-amber-600 focus:border-transparent placeholder-stone-400"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <input
+                type="password"
+                placeholder="Password"
+                className="w-full px-4 py-3 rounded-lg bg-stone-100 text-stone-900 border-transparent focus:ring-2 focus:ring-amber-600 focus:border-transparent placeholder-stone-400"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-bold text-white bg-amber-600 hover:bg-amber-600/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-600 transition-colors cursor-pointer"
+              >
+                Sign Up
+              </button>
+            </div>
           </form>
 
-          {/* Redirect to Login page */}
-          <p className="mt-4 text-sm">
+          <p className="text-center text-sm text-muted-light">
             Already have an account?{" "}
             <a
               href="/login"
-              className="text-blue-500 hover:underline cursor-pointer"
+              className="font-medium text-amber-600 hover:text-amber-600/90 transition-colors cursor-pointer"
             >
-              Login here
+              Login
             </a>
           </p>
         </div>
       </div>
 
-      {/* Background Image Container */}
-      {/* <div
-        className="image-container hidden md:block flex-1 bg-cover bg-left relative"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black opacity-50"></div>{" "}
-      </div> */}
+      {/* Right column: Image */}
+      <div className="hidden lg:block order-1 lg:order-2">
+        <div
+          className="h-full w-full bg-cover bg-center"
+          style={{
+            backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuBWUoidvgmrfXsy3mgKtCnX5371H-gvb6y0KglBop-3w4hQnfjLS7wwDyrvieZffpsDL0paSK6229nIgxt9CbjevOz_CyLdH45nFp5Aj7KLjWAkv_cRx9khmMsDnGui26OGlGhXxUL2Zkhopf54fd7USRxqBiHXZRqPEjZGUYmcy5LMRxwnzaEj5nnOxiTuZZ6CLVIOuU7_YC4ASrWPsaCj6N3JqxAyrIpUcGaqLiwWVKDIkT5VXU2qwn_6pSgEjjJGkp2P1pAg-DU")`,
+          }}
+        />
+      </div>
     </div>
   );
 }

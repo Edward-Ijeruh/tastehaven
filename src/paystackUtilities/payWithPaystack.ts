@@ -1,8 +1,10 @@
+import { loadPaystackScript } from "./loadPaystackScript";
+
 interface PaystackProps {
   email: string;
   amount: number;
   reference?: string;
-  onSuccess: () => void;
+  onSuccess: (reference: string) => void;
   onClose: () => void;
 }
 
@@ -13,14 +15,18 @@ export const payWithPaystack = async ({
   onSuccess,
   onClose,
 }: PaystackProps) => {
-  await import("./loadPaystackScript").then((m) => m.loadPaystackScript());
+  await loadPaystackScript();
+
+  const ref = reference || `ref-${Date.now()}`;
 
   const handler = (window as any).PaystackPop.setup({
     key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
     email,
-    amount: amount * 100,
-    ref: reference || `ref-${Date.now()}`,
-    callback: onSuccess,
+    amount,
+    ref,
+    callback: (response: { reference: string }) => {
+      onSuccess(response.reference);
+    },
     onClose,
   });
 

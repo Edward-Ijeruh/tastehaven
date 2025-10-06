@@ -1,112 +1,163 @@
-import React, { useState } from "react";
-import { useNotification } from "../Components/NotificationContext";
-import {FaTwitter, FaInstagram} from "react-icons/fa";
-import {Link} from "react-router-dom";
-import { Home, Phone, Mail, MapPin} from "lucide-react";
-
 const ContactUs = () => {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-    });
-    const {showNotification} = useNotification();
+  return (
+    <main className="flex-grow">
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-5xl mx-auto">
+          {/* Our Story */}
+          <div className=" mb-12">
+            <h2 className="text-4xl font-bold tracking-tight text-stone-900">
+              Our Story
+            </h2>
+            <p className="mt-4 max-w-2xl text-md text-stone-600">
+              From a small family kitchen to a beloved haven for food lovers,
+              our journey is seasoned with passion and a commitment to
+              deliciousness.
+            </p>
+          </div>
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+          {/* Mission & Values */}
+          <section className="space-y-16">
+            <div className="bg-white rounded-xl shadow-md p-8 border border-amber-600/10">
+              <h3 className="text-2xl font-extrabold mb-6 border-b-2 border-amber-600/30 pb-3 text-stone-900">
+                Our Mission &amp; Values
+              </h3>
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Form Data:", formData);
-        showNotification("Thank you for reaching out! We'll get back to you shortly.", "success");
-        setFormData({ name: "", email: "", subject: "", message: "" });
-    };
-
-    return (
-        <div className="p-6 max-w-3xl mx-auto">
-            <h1 className="text-2xl font-bold mb-6">Contact Us</h1>
-            <Link to="/" className="flex items-center gap-2 my-5 px-4 py-2 bg-yellow-400 text-black rounded w-40">
-                            Back to Home <Home size={18} />
-                    </Link>
-            <form onSubmit={handleSubmit} className="space-y-4">
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Your Name"
-                    required
-                    className="w-full p-2 border border-gray-300 rounded"
-                />
-                <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Your Email Address"
-                    required
-                    className="w-full p-2 border border-gray-300 rounded"
-                />
-                <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    placeholder="Subject"
-                    required
-                    className="w-full p-2 border border-gray-300 rounded"
-                />
-                <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Your Message"
-                    required
-                    className="w-full p-2 border border-gray-300 rounded h-32"
-                />
-                <button
-                    type="submit"
-                    className="bg-green-500 text-white px-4 py-2 rounded cursor-pointer"
-                >
-                    Send Message
-                </button>
-            </form>
-            <hr className="mt-8 text-gray-300" />
-            <div className="mt-8 space-y-4">
-                <h2 className="text-lg font-bold">Customer Support</h2>
-                <p className="flex items-center space-x-2 text-gray-700">
-                    <Phone className="text-green-500" size={20} />
-                    <span>: +234 9022334455</span>
-                </p>
-                <p className="flex items-center space-x-2 text-gray-700">
-                    <Mail className="text-blue-500" size={20} />
-                    <span>: support@tastehaven.com</span>
-                </p>
-                <p className="flex items-center space-x-2 text-gray-700">
-                    <MapPin className="text-red-500" size={20} />
-                    <span>: Ibadan, Oyo State. Nigeria</span>
-                </p>
-                <iframe
-                    className="w-full h-64 border"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3158.3769732178635!2d3.8939496163726225!3d7.387788526907107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103865d7c30f5399%3A0x1f2cdbd7bcb7751d!2sCapital%20Building%2C%20MKO%20Abiola%20Way%2C%20Ibadan%2C%20Oyo%20State!5e0!3m2!1sen!2sng!4v1234567890"
-                    title="Google Map"
-                    allowFullScreen
-                ></iframe>
-                <hr className="mt-8 text-gray-300" />
-                <h2 className="mt-4 font-semibold">Our Socials</h2>
-                <div className="flex space-x-4">
-                    <a href="https://x.com/edwardijeruh?s=11" className="text-blue-500">
-                        <FaTwitter size={20} /> 
-                    </a>
-                    <a href="https://www.instagram.com/edwardijeruh?igsh=MTJwdHp0ZTNiY3g2OA%3D%3D&utm_source=qr" className="text-pink-500">
-                        <FaInstagram size={20} />
-                    </a>
+              <div className="grid md:grid-cols-2 gap-10">
+                {/* Mission */}
+                <div className="space-y-3">
+                  <h4 className="text-2xl font-semibold text-amber-600">
+                    Mission
+                  </h4>
+                  <p className="text-stone-700 text-md leading-relaxed">
+                    To provide a delightful dining experience that exceeds
+                    expectations, using the freshest, locally-sourced
+                    ingredients. We are dedicated to creating exciting flavors
+                    and ensuring our food is not only delicious but also
+                    responsible.
+                  </p>
                 </div>
+
+                {/* Core Values */}
+                <div className="space-y-4">
+                  <h4 className="text-2xl font-semibold text-amber-600">
+                    Core Values
+                  </h4>
+                  <ul className="list-disc list-inside space-y-3 text-md text-stone-700 marker:text-amber-600">
+                    <li>
+                      <span className="font-semibold text-stone-900">
+                        Quality:
+                      </span>{" "}
+                      The finest ingredients, prepared with care.
+                    </li>
+                    <li>
+                      <span className="font-semibold text-stone-900">
+                        Satisfaction:
+                      </span>{" "}
+                      Prioritizing our customers' happiness.
+                    </li>
+                    <li>
+                      <span className="font-semibold text-stone-900">
+                        Innovation:
+                      </span>{" "}
+                      Constantly exploring new, exciting flavors.
+                    </li>
+                    <li>
+                      <span className="font-semibold text-stone-900">
+                        Community:
+                      </span>{" "}
+                      Actively supporting the communities we serve.
+                    </li>
+                    <li>
+                      <span className="font-semibold text-stone-900">
+                        Sustainability:
+                      </span>{" "}
+                      Minimizing our environmental impact.
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
+
+            {/* Meet the Team */}
+            <section>
+              <h3 className="text-2xl font-bold mb-8 px-8 text-stone-900">
+                Meet the Team
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[
+                  {
+                    name: "Sarah Chen",
+                    role: "CEO & Founder",
+                    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuD7X1zG2aVdc8fITDP_3oBH2W7vQVRtHbOWs_iJNVDGO_PhEpzZslPAOuAlWF00aXIhZ9eXgLsyWoW-1B4ZBeE49ATp3c4qFaUw6qNul20VV_FFcv542MlCnBqM4Wow-FcNkQO_ZqUSXERn3f_G7lwrPF2r3CQ_7Rq82IUTmgaKhenIVGsirt2cJ8KEgdrPMBd6Say4C1E92rWj6yzeTvRxS9RsqcNAmr4tDjW6qQNvRv1FtCuRcDxBq3y2yEYGAHJpNcdT1uX0Z0U",
+                  },
+                  {
+                    name: "David Lee",
+                    role: "Head Chef",
+                    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuC7Rt8RvWWjOLApCgYJNVnk3-YgbxB4eL-LESGpd4AJWvQISML3FRIVW_6BiDMAttffzuQuYzEtiXIpOU6K0lx6kPOi947j4PnC7RF6UcKB4fqiaFwPbIUL1AqPkw2eAwL27Iqy7d7jeML6DEQ8reXPGKMINmfw7WSpJ-A6tZHHnBKSfdRNy68yRZrd2TjGZEP4waRX4hungj3mLUn1pCbIWtx2RMhsBfPtEz7aOr_QXRl_PLwUhuhSOE7eDgMVybEbGzHuu_FH3vQ",
+                  },
+                  {
+                    name: "Emily Rodriguez",
+                    role: "Marketing Director",
+                    img: "https://lh3.googleusercontent.com/aida-public/AB6AXuAkP0ED9yvJ7_3s-rjN_oRoetedO0vWjChTVY5S44PUNRA6oovxlXDryJVPDhPBwUcoPWbtXLMZCsbhK7ZXS4S91xZEEuXv0WRBvqtbxj5mgPWdvvxhencBEnT-7ZuU0H5jivSKLN_em2Pz4AOH-SkQlPPWbFBVFnxqwSuvk7yOx5hELEsEh40Qbrn38QVtoAJ9FvS4j5srNtzf1jms289WULK8n9zZOOIP3Iey_Qozd9OsO5FM_rarAir-FeNVJ7MecKx7FZQArEc",
+                  },
+                ].map((member) => (
+                  <div key={member.name} className="text-center">
+                    <img
+                      src={member.img}
+                      alt={member.name}
+                      className="w-32 h-32 rounded-full mx-auto mb-4 object-cover ring-4 ring-amber-600/20"
+                    />
+                    <h4 className="text-lg font-bold text-stone-900">
+                      {member.name}
+                    </h4>
+                    <p className="text-amber-600 font-medium">{member.role}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Our Milestones */}
+            <div className="bg-white rounded-xl shadow-md p-8 border border-amber-600/10">
+              <section>
+                <h3 className="text-2xl font-bold mb-6 text-stone-900 border-b-2 border-amber-600/30  pb-3">
+                  Our Milestones
+                </h3>
+                <div className="relative text-md border-l-2 border-stone-200 pl-8">
+                  {[
+                    {
+                      year: "2024",
+                      title: "TasteHaven Opens Its Doors",
+                      desc: "The first TasteHaven restaurant opens in downtown Springfield.",
+                    },
+                    {
+                      year: "2025",
+                      title: "Launch of Online Ordering",
+                      desc: "TasteHaven launches its online ordering platform, making it easier than ever to enjoy our food.",
+                    },
+                  ].map((milestone, index) => (
+                    <div key={index} className="relative mb-8">
+                      <div className="absolute top-1 -left-11 w-5 h-5 bg-amber-600 rounded-full ring-4 ring-white"></div>
+                      <h4 className="text-lg font-bold text-stone-900">
+                        {milestone.year}: {milestone.title}
+                      </h4>
+                      <p className="text-stone-600">{milestone.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </div>
+
+            {/* Contact button */}
+            <div className="text-center pt-8">
+              <button className="px-8 py-3 text-base font-bold bg-amber-600/20 text-stone-900 rounded-lg hover:bg-amber-600/30 transition-colors cursor-pointer">
+                Contact Us
+              </button>
+            </div>
+          </section>
         </div>
-    );
+      </div>
+    </main>
+  );
 };
 
 export default ContactUs;

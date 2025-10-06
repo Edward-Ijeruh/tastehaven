@@ -1,83 +1,152 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCart } from "../Components/CartContext";
-import { MenuItems } from "../Components/MenuItems";
 import { useNotification } from "../Components/NotificationContext";
-import { Link } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
+import { menuData, categories } from "../Components/MenuItems";
 
-const Menu = () => {
-    const [searchQuery, setSeacrhQuery] = useState<string>("");
-    const { dispatch } = useCart();
-    const { showNotification } = useNotification();
+export default function Menu() {
+  const [activeCategory, setActiveCategory] = useState("featured");
+  const { dispatch } = useCart();
+  const { showNotification } = useNotification();
 
-    //Get search query from local storage
-    useEffect(() => {
-        const savedSearchQuery = localStorage.getItem("searchQuery");
-        if (savedSearchQuery) {
-            setSeacrhQuery(savedSearchQuery);
-        }
-    }, []);
-
-    //Update to local storage
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const query = e.target.value;
-        setSeacrhQuery(query);
-        localStorage.setItem("searchQuery", query);
-        dispatch({ type: "SET_SEARCH_QUERY", payload: query });
+  const handleAddToCart = (item: any, category: string) => {
+    const itemWithQuantity = {
+      id: item.id,
+      name: item.name,
+      price: Number(item.price),
+      quantity: 1,
+      img: item.img,
+      category,
     };
 
-    // Filter items
-    const filteredItems = MenuItems.filter(
-        (item) =>
-            item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            item.category.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
+    dispatch({ type: "ADD_ITEM", payload: itemWithQuantity });
+    showNotification(`${item.name} added to cart!`, "success");
+  };
 
-    const handleAddToCart = (item: (typeof MenuItems)[0]) => {
-        const itemWithQuantity = { ...item, quantity: 1 };
-        dispatch({ type: "ADD_ITEM", payload: itemWithQuantity });
-        showNotification(`${item.name} added to cart!`, "success");
-    };
+  return (
+    <main className="px-4 py-8 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-4xl font-bold tracking-tight">Menu</h1>
 
-    return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold mb-4">Menu</h1>
-            <div className="flex items-center justify-between mb-4">
-                <input
-                    type="search"
-                    value={searchQuery}
-                    onChange={handleSearch}
-                    placeholder="Search for items..."
-                    className="p-2 mb-4 border border-gray-300 rounded"
-                />
-                <Link
-                    to="/cart"
-                    className="flex items-center mb-4 gap-2 px-4 py-2 bg-yellow-400 text-black rounded"
-                >
-                    Cart <ShoppingCart size={18} />
-                </Link>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredItems.map((item) => (
-                    <div key={item.id} className=" p-4 rounded shadow-md">
-                        <img
-                            src={item.img}
-                            alt={item.name}
-                            className={`w-full h-48 mb-4 ${item.category === "Soda Drinks" ? "object-contain bg-white" : "object-cover"}`}
-                        />
-                        <h3 className="font-semibold text-lg">{item.name}</h3>
-                        <p className="text-gray-700">₦{item.price}</p>
-                        <button
-                            onClick={() => handleAddToCart(item)}
-                            className="mt-2 px-4 py-2 bg-black text-white rounded cursor-pointer"
-                        >
-                            Add to Cart
-                        </button>
-                    </div>
-                ))}
-            </div>
+        {/* Category Filter */}
+        <div className="mt-6 border-b border-amber-600/20">
+          <nav className="-mb-px flex space-x-8 overflow-x-auto">
+            {categories.map((cat) => (
+              <button
+                key={cat.key}
+                onClick={() => setActiveCategory(cat.key)}
+                className={`whitespace-nowrap border-b-2 px-1 pb-4 text-sm font-medium transition-colors cursor-pointer ${
+                  activeCategory === cat.key
+                    ? "border-amber-600 text-amber-600 font-bold"
+                    : "border-transparent text-stone-500 hover:border-amber-600/40 hover:text-stone-700"
+                }`}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </nav>
         </div>
-    );
-};
 
-export default Menu;
+        {/* Menu Items */}
+        <div className="mt-8 space-y-12">
+          {activeCategory === "featured" ? (
+            <>
+              {/* Featured first */}
+              <section>
+                <h2 className="text-2xl font-bold">Featured</h2>
+                <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2">
+                  {menuData.featured.map((item) => (
+                    <MenuCard
+                      key={item.id}
+                      item={item}
+                      category="featured"
+                      onAddToCart={handleAddToCart}
+                    />
+                  ))}
+                </div>
+              </section>
+
+              {/* Then all categories */}
+              {categories
+                .filter((c) => c.key !== "featured")
+                .map((cat) => (
+                  <section key={cat.key}>
+                    <h2 className="text-2xl font-bold">{cat.label}</h2>
+                    <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2">
+                      {menuData[cat.key].map((item) => (
+                        <MenuCard
+                          key={item.id}
+                          item={item}
+                          category={cat.key}
+                          onAddToCart={handleAddToCart}
+                        />
+                      ))}
+                    </div>
+                  </section>
+                ))}
+            </>
+          ) : (
+            /* Normal single-category view */
+            <section>
+              <h2 className="text-2xl font-bold">
+                {categories.find((c) => c.key === activeCategory)?.label}
+              </h2>
+              <div className="mt-6 grid grid-cols-1 gap-x-8 gap-y-10 md:grid-cols-2">
+                {menuData[activeCategory].map((item) => (
+                  <MenuCard
+                    key={item.id}
+                    item={item}
+                    category={activeCategory}
+                    onAddToCart={handleAddToCart}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+      </div>
+    </main>
+  );
+}
+
+/* Card Component */
+function MenuCard({
+  item,
+  category,
+  onAddToCart,
+}: {
+  item: any;
+  category: string;
+  onAddToCart: (item: any, category: string) => void;
+}) {
+  return (
+    <div className="flex gap-6 rounded-xl bg-background-light p-4 shadow-sm transition-shadow hover:shadow-lg dark:bg-background-dark">
+      <div className="flex-1">
+        {item.tag && (
+          <p className="text-xs font-bold uppercase tracking-wider text-amber-600">
+            {item.tag}
+          </p>
+        )}
+        <h3 className="mt-1 text-lg font-bold">{item.name}</h3>
+        <p className="mt-2 text-sm text-stone-500 dark:text-stone-400">
+          {item.desc}
+        </p>
+        <p className="mt-2 text-lg font-bold">
+          ₦{item.price.toLocaleString("en-NG")}
+        </p>
+
+        <button
+          onClick={() => onAddToCart(item, category)}
+          className="mt-4 flex h-9 items-center justify-center rounded-lg bg-amber-600 px-4 text-sm font-bold text-white hover:bg-opacity-90 cursor-pointer"
+        >
+          Add to Cart
+        </button>
+      </div>
+      <div className="w-32 flex-shrink-0 sm:w-48">
+        <div
+          className="aspect-square w-full rounded-lg bg-cover bg-center"
+          style={{ backgroundImage: `url(${item.img})` }}
+        />
+      </div>
+    </div>
+  );
+}

@@ -1,200 +1,135 @@
 import { Link } from "react-router-dom";
-import heroImage from "../assets/hero_background.jpg";
-import fastDelivery from "../assets/fast_delivery.jpg";
-import freshIngredients from "../assets/fresh_vegies.jpeg";
-import orderAnytime from "../assets/order_anytime.svg";
-import securePayment from "../assets/secure_payments.jpg";
-import customerSupport from "../assets/customer support.jpg";
-import loyaltyProgram from "../assets/loyalty_program.jpg";
 
-const Home = () => {
+const Hero = () => {
   return (
-    <div className="flex flex-col items-center pb-10">
+    <main className="flex-grow">
       {/* Hero Section */}
-      <div
-        className="relative text-white w-full h-96 flex flex-col justify-center items-center space-y-4 text-center px-4"
+      <section
+        className="relative h-[60vh] min-h-[400px] max-h-[600px] bg-cover bg-center"
         style={{
-          backgroundImage: `url(${heroImage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9MjPU60w1kV7efDOBf7IJs6EvJEF9FlWN79bjNgJPYVywIeOCbHzehxRs9ovlhdk63fEOKUYW2iY0y3bocl2sMKR8P9zrBsi5ZPnU_ldf2Td2kKjGmH2Ufu5ecL3V2hx_F3Y3h95MXIu0u45_MKlqGPse00mTB_D2ZZYyvX5Z_YZeEy7E3sV98TUTHCwWloeNZHRP813c1tmRY7feXDNxp0Y6wZYkGq_jCUOeSINgvF1OfDscOrSJVbaWYxaA-zBVMBSmcRfL_Po')",
         }}
       >
-        <div className="absolute inset-0 bg-black opacity-50 h-full"></div>
-        <h1 className="relative text-3xl md:text-4xl font-bold z-10 text-shadow-lg">
-          Welcome to TasteHaven!
-        </h1>
-        <p className="relative text-xl z-10 text-shadow-lg">
-          Delicious meals, fast deliveries!
-        </p>
-        <Link to="/menu">
-          <button className="relative bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg z-10 text-shadow-lg mt-4 hover:bg-yellow-500 transition duration-300 cursor-pointer">
-            Order Now
-          </button>
-        </Link>
-      </div>
-
-      {/* Introduction Section */}
-      <div className="p-3 mt-8 max-w-5xl mx-auto text-center space-y-6">
-        <h2 className="text-3xl font-semibold">What We Offer</h2>
-        <p className="text-lg text-gray-700">
-          At TasteHaven, we offer a variety of delicious meals, <br /> all
-          prepared with fresh ingredients and delivered straight to your door.
-        </p>
-        {/* Service Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
-          {/* Service Card 1 */}
-          <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-            <img
-              src={fastDelivery}
-              alt="Fast Delivery"
-              className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
-            />
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
-              Fast Delivery
-            </h3>
-            <p className="hidden sm:block text-sm text-gray-600 mt-2">
-              Enjoy your meals delivered to your door quickly. We prioritize
-              speed without compromising quality.
-            </p>
-          </div>
-
-          {/* Service Card 2 (Change image to illustration) */}
-          <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-            <img
-              src={freshIngredients}
-              alt="Fresh Ingredients"
-              className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
-            />
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
-              Fresh Ingredients
-            </h3>
-            <p className="hidden sm:block text-sm text-gray-600 mt-2">
-              We use only the freshest ingredients in our meals to ensure you
-              always get the best taste and quality.
-            </p>
-          </div>
-
-          {/* Service Card 3 */}
-          <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-            <img
-              src={orderAnytime}
-              alt="Order Anytime"
-              className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
-            />
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
-              Order Anytime
-            </h3>
-            <p className="hidden sm:block text-sm text-gray-600 mt-2">
-              Whether it’s breakfast, lunch, or dinner, you can place your order
-              at any time, and we’ll bring it to you.
-            </p>
-          </div>
-
-          {/* Service Card 4 */}
-          <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-            <img
-              src={securePayment}
-              alt="Secure Payment"
-              className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
-            />
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
-              Secure Payment
-            </h3>
-            <p className="hidden sm:block text-sm text-gray-600 mt-2">
-              Our platform offers secure and reliable payment methods, ensuring
-              your transaction is safe and easy.
-            </p>
-          </div>
-
-          {/* Service Card 5 */}
-          <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-            <img
-              src={customerSupport}
-              alt="Customer Support"
-              className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
-            />
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
-              24/7 Customer Support
-            </h3>
-            <p className="hidden sm:block text-sm text-gray-600 mt-2">
-              Our support team is available around the clock to assist with any
-              issues or questions you may have.
-            </p>
-          </div>
-
-          {/* Service Card 6 */}
-          <div className="bg-white p-6 rounded-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-            <img
-              src={loyaltyProgram}
-              alt="Loyalty Program"
-              className="w-24 h-20 sm:w-48 sm:h-42 mx-auto mb-4"
-            />
-            <h3 className="text-lg sm:text-xl font-semibold text-gray-800">
-              Loyalty Program
-            </h3>
-            <p className="hidden sm:block text-sm text-gray-600 mt-2">
-              Earn points with every order and unlock exclusive discounts and
-              rewards through our loyalty program.
-            </p>
-          </div>
-        </div>
-
-        {/* Customer Reviews Section */}
-        <div className="p-6 max-w-5xl mx-auto text-center space-y-6 mt-10 bg-gray-800 text-white rounded-lg shadow-lg">
-          <h2 className="text-3xl font-semibold">What Our Customers Say</h2>
-          <p className="text-lg text-gray-300">
-            Here's what some of our happy customers have to say about
-            TasteHaven:
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold drop-shadow-lg">
+            Taste the Difference
+          </h1>
+          <p className="mt-4 max-w-2xl text-lg sm:text-xl drop-shadow">
+            Enjoy our daily specials and exclusive online deals. Order now for
+            fast delivery or pickup.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Review 1 */}
-            <div className="bg-gray-700 p-6 rounded-lg shadow-md">
-              <p className="text-sm text-gray-300 mb-4">
-                "The food is always fresh and delicious! The delivery is so
-                fast, and the customer service is top-notch. Highly recommend
-                TasteHaven!"
-              </p>
-              <p className="font-bold text-gray-100">- Adebayo A.</p>
-            </div>
-
-            {/* Review 2 */}
-            <div className="bg-gray-700 p-6 rounded-lg shadow-md">
-              <p className="text-sm text-gray-300 mb-4">
-                "I love the loyalty program! It’s amazing to get rewards while
-                enjoying my favorite meals. TasteHaven has become my go-to!"
-              </p>
-              <p className="font-bold text-gray-100">- Fatima O.</p>
-            </div>
-
-            {/* Review 3 */}
-            <div className="bg-gray-700 p-6 rounded-lg shadow-md">
-              <p className="text-sm text-gray-300 mb-4">
-                "Great variety of dishes and easy online ordering process.
-                TasteHaven never disappoints—keep up the excellent work!"
-              </p>
-              <p className="font-bold text-gray-100">- Kehinde M.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Call to Action Section */}
-        <div className="bg-yellow-50 p-6 max-w-5xl mx-auto text-center rounded-lg mt-10 shadow-lg">
-          <h2 className="text-2xl font-bold text-gray-800">
-            We'd Love to Hear From You!
-          </h2>
-          <p className="text-lg text-gray-700 mt-2">
-            Got questions, feedback, or simply want to say hello? Our team is
-            here to help. Contact us today!
-          </p>
-          <Link to="/contact">
-            <button className="mt-4 bg-yellow-400 text-gray-900 px-6 py-3 rounded-lg hover:bg-yellow-500 transition duration-300 cursor-pointer">
-              Contact Us
+          <Link to="/menu">
+            <button className="mt-8 px-8 py-3 text-lg font-bold bg-amber-600 text-white rounded-full hover:bg-amber-700 transition-transform transform hover:scale-105 cursor-pointer">
+              Order Now
             </button>
           </Link>
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* Popular Items */}
+      <section className="py-16 sm:py-24 bg-background-light">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">
+            Popular Items
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                name: "The Classic Burger",
+                desc: "Our signature burger with all the fixings.",
+                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuDutXHDirXwSQJyV0eXYtteTZVFd1zuZxGn5gVcK0EcH_2sgk37TOZXPu9Ptk7v2L5efV6851vyEXr2_wCMTa5s5UgWr9na1lqNv3meqnt34h7EENna3S2s9iJ9jFVgqveV7RZBOV6XxAmk1KsAlA47FlPLmk_jnUyoUNjOoaoYtrj9gdD2_EyP6P8C8pRVAY5X662v4WVCGwcyMy8Pt0aRpyUK_9uT3HuU52ki-UGehRfGvKqZrILefnbzwER3o63b-PRno-e2qMg",
+              },
+              {
+                name: "Pepperoni Pizza",
+                desc: "A classic favorite with a crispy crust.",
+                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBWileXHY253N51cMfRWL0rU_DLsltqUkpttTMCNaXqx2HknQcd_sT0KBNgxcQPAviwROCXlb15ABBFyKFy1TLUL79mEex2OtuqZSf9IPRLWrNOp9Ku2A_PYRP96X_8Pk4hRENnD0BW24aM5zKvCaIKq8qEP-Jledsh7wu0YwwE9NHp7_Qj8cdKXZaA2TSU6eUboq5m8KK-0O6VeHNLSI4oGSnIxPqQduquatiS8MzJY3fsdqwTsk_8MV5ar6E4nGVk3IEkDr5xZ18",
+              },
+              {
+                name: "Spicy Chicken Wings",
+                desc: "Perfectly seasoned and irresistibly spicy.",
+                img: "https://lh3.googleusercontent.com/aida-public/AB6AXuBVsyeAwMUuH67zx5Cxzc02HhIsC05pjRXPRyOI29g5NY6RzCupj9axAXEEPE7lqH4zrfthREI6FiX1hS-pmguuXcVnSk6BspBDzx2svjW36on5mG4ZTG5KnI0vzVxVMyndCbyXEufU0HldYYPOPygB0lcTmixBPkHd7bhbS8vkkZfZemEShcg4GEbCWmvB9Njt_F6OAumw7fPbNUXSbu6NduV7KEQToy7sEoqxu1iiUE9dBBz0aXf6ZFQ7Ooy45U6QsGtVr_eVUzo",
+              },
+            ].map((item) => (
+              <div
+                key={item.name}
+                className="bg-background-light rounded-xl shadow-lg overflow-hidden transition-transform transform hover:-translate-y-2"
+              >
+                <img
+                  src={item.img}
+                  alt={item.name}
+                  className="w-full h-56 object-cover"
+                />
+                <div className="p-6">
+                  <h3 className="text-xl font-bold">{item.name}</h3>
+                  <p className="mt-2 text-stone-600">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Rewards Section */}
+      <section className="py-16 sm:py-24 bg-amber-600/10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+            <div className="lg:w-1/2 text-center lg:text-left">
+              <h2 className="text-3xl font-bold">Join TasteHaven Rewards</h2>
+              <p className="mt-4 text-lg text-stone-700">
+                Start earning points with every order and get exclusive rewards,
+                birthday treats, and more. Being loyal has its perks!
+              </p>
+              <form className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="w-full sm:w-auto flex-grow px-4 py-3 rounded-full bg-white border-transparent focus:ring-2 focus:ring-amber-600 focus:border-transparent text-sm"
+                />
+                <button className="px-8 py-3 text-sm font-bold bg-amber-600 text-white rounded-full hover:bg-amber-700 transition-colors cursor-pointer">
+                  Sign Up
+                </button>
+              </form>
+            </div>
+            <div className="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 lg:mt-0">
+              {[
+                {
+                  icon: "card_giftcard",
+                  title: "Earn Points",
+                  desc: "Get 10 points for every $1 spent.",
+                },
+                {
+                  icon: "celebration",
+                  title: "Birthday Treat",
+                  desc: "Enjoy a free item on your birthday.",
+                },
+                {
+                  icon: "local_offer",
+                  title: "Exclusive Deals",
+                  desc: "Access members-only offers.",
+                },
+                {
+                  icon: "rocket_launch",
+                  title: "Early Access",
+                  desc: "Be the first to try new menu items.",
+                },
+              ].map((perk) => (
+                <div key={perk.title} className="flex items-center gap-4">
+                  <span className="material-symbols-outlined text-amber-600 text-4xl">
+                    {perk.icon}
+                  </span>
+                  <div>
+                    <h3 className="font-bold text-lg">{perk.title}</h3>
+                    <p className="text-sm text-stone-600">{perk.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 };
 
-export default Home;
+export default Hero;
